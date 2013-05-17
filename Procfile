@@ -1,1 +1,3 @@
-web: ./run
+web: 
+chmod +x ./run
+./run
