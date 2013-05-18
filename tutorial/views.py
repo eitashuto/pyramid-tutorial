@@ -128,3 +128,9 @@ def logout(request):
 @view_config(route_name='books', renderer='templates/books.pt')
 def books(request):
     return dict(book_titles = ["悪魔", "Bulls1", "Miami Heat"])
+
+@view_config(route_name='books_info', renderer='json')
+def books_info(request):
+    #return {'content':'gggg', "age":'悪魔'}
+#    return {'1':{'author':'横溝正史','title':'獄門島'}, '2':{'author':'横溝正史','title':'八つ墓村'}}
+    return {'author':'横溝正史','title':'獄門島'}

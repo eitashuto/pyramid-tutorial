@@ -26,9 +26,25 @@
             var data = ${book_titles}
             $("#book_hint").autocomplete({source:data});
         	$("#book_hint").change(function(){
-        		  val1 = $("#book_hint").val();
-        		  val1 = $("#input_val").text(val1);
-        		  alert(val1);
+        	    val1 = $("#book_hint").val();
+        		//$("#input_val").text($("#book_hint").val())
+        		//alert(val1);
+              	$.ajax({
+            		url: "./books_info",
+                    //url: "http://www.renowan.com/blog/flash/20110511_ajax/getAr.php"
+            		type: "POST",
+            		//data: { val : ''},
+            		//dataType: 'json',
+            		success: function(arr) {
+            			//alert("OK!!!");
+            			//var parseAr = JSON.parse(arr);
+            			$.each(arr, function(key,val){$("#input_val").text(val)})
+                	    //$("#input_val").text(arr);
+            		},
+            		error: function(XMLHttpRequest, textStatus, errorThrown) {
+            			alert(textStatus);
+            		}
+            	});
         	});
         });
         
