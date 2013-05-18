@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import re
 from docutils.core import publish_parts
 
@@ -121,3 +124,7 @@ def logout(request):
     headers = forget(request)
     return HTTPFound(location = request.route_url('view_wiki'),
                      headers = headers)
+
+@view_config(route_name='books', renderer='templates/books.pt')
+def books(request):
+    return dict(book_titles = ["悪魔", "Bulls1", "Miami Heat"])
