@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 import sys
 import transaction
@@ -12,6 +15,7 @@ from pyramid.paster import (
 from ..models import (
     DBSession,
     Page,
+    Book,
     Base,
     )
 
@@ -35,3 +39,7 @@ def main(argv=sys.argv):
     with transaction.manager:
         model = Page('FrontPage', 'This is the front page')
         DBSession.add(model)
+        book1 = Book(u'横溝正史', u'獄門島')
+        book2 = Book(u'横溝正史', u'八つ墓村')
+        DBSession.add_all([book1, book2])
+        

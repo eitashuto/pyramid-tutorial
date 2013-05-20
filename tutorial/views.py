@@ -23,10 +23,14 @@ from pyramid.security import (
 from .models import (
     DBSession,
     Page,
+    Book,
     )
 
 from .security import USERS
 
+import json
+from .database_util import AlchemyEncoder
+   
 # regular expression used to find WikiWords
 wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
 
@@ -131,6 +135,10 @@ def books(request):
 
 @view_config(route_name='books_info', renderer='json')
 def books_info(request):
+    books = DBSession.query(Book).all()[0]
+    result = json.dumps(books, cls=AlchemyEncoder)
+    print result
+    return result
     #return {'content':'gggg', "age":'悪魔'}
 #    return {'1':{'author':'横溝正史','title':'獄門島'}, '2':{'author':'横溝正史','title':'八つ墓村'}}
-    return {'author':'横溝正史','title':'獄門島'}
+#    return {"author":'横溝正史','title':'獄門島'}

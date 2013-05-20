@@ -36,8 +36,9 @@
             		//data: { val : ''},
             		//dataType: 'json',
             		success: function(arr) {
+            		    $("#input_val").text(arr);
             			//alert("OK!!!");
-            			//var parseAr = JSON.parse(arr);
+            			var arr = JSON.parse(arr);
             			$.each(arr, function(key,val){$("#input_val").text(val)})
                 	    //$("#input_val").text(arr);
             		},

@@ -12,3 +12,12 @@ Getting Started
 
 - $venv/bin/pserve development.ini
 
+
+-----------------
+run server
+..\Scripts\pserve development.ini --reload
+
+DB Re-initialize
+..\Scripts\initialize_tutorial_db development.ini
+
+

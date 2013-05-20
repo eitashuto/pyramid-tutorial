@@ -33,6 +33,17 @@ class Page(Base):
         self.name = name
         self.data = data
 
+class Book(Base):
+    """ The SQLAlchemy declarative model class for a Book object. """
+    __tablename__ = 'books'
+    id = Column(Integer, primary_key=True)
+    title = Column(Text)
+    author = Column(Text)
+
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+        
 class RootFactory(object):
     __acl__ = [ (Allow, Everyone, 'view'),
                 (Allow, 'group:editors', 'edit') ]
