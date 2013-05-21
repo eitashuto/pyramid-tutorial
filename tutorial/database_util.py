@@ -2,6 +2,7 @@ import json
 from sqlalchemy.ext.declarative import DeclarativeMeta
 class AlchemyEncoder(json.JSONEncoder):
     def default(self, obj):
+        print "default"
         if isinstance(obj.__class__, DeclarativeMeta):
             # an SQLAlchemy class
             fields = {}
@@ -10,6 +11,8 @@ class AlchemyEncoder(json.JSONEncoder):
                 try:
                     json.dumps(data) # this will fail on non-encodable values, like other classes
                     print data
+                    print field
+
                     fields[field] = data
                 except TypeError:
                     fields[field] = None
@@ -18,3 +21,9 @@ class AlchemyEncoder(json.JSONEncoder):
             return fields
     
         return json.JSONEncoder.default(self, obj)
+    
+class BookInfo:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+    

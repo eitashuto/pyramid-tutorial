@@ -31,7 +31,27 @@ function updateBooklist( booklist )
    table.draw(data, {showRowNumber: true});
 };
 
-//jQuery(function($) {
-//  $('tr').addClass('clickable');
-//  .click(function(e)
+var val_book_hint = "";
 
+function refrect_hint(){
+  console.log("function refrect_hint");
+  new_val_book_hint = $("#book_hint").val();
+  if(val_book_hint == new_val_book_hint){
+    return
+  }
+  val_book_hint = new_val_book_hint
+  
+  $.ajax({
+    url: "./books_info",
+    type: "POST",
+    data: { val_book_hint: val_book_hint},
+    dataType: 'json',
+    success: function(arr) {
+      var booklist = JSON.parse(arr);
+      updateBooklist (booklist)
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      alert(textStatus);
+    }
+  });
+}

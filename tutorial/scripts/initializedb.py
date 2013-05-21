@@ -15,7 +15,9 @@ from pyramid.paster import (
 from ..models import (
     DBSession,
     Page,
+    Author,
     Book,
+    Question,
     Base,
     )
 
@@ -39,7 +41,9 @@ def main(argv=sys.argv):
     with transaction.manager:
         model = Page('FrontPage', 'This is the front page')
         DBSession.add(model)
-        book1 = Book(u'獄門島', u'横溝正史')
-        book2 = Book(u'八つ墓村', u'横溝正史')
+        author1 = Author(u'横溝正史', u'よこみぞせいし')
+        DBSession.add(author1)
+        book1 = Book(1, u'獄門島', 0)
+        book2 = Book(1, u'八つ墓村', 0)
         DBSession.add_all([book1, book2])
         

@@ -26,31 +26,8 @@
         $(document).ready(function(){
             var data = ${book_titles}
             $("#book_hint").autocomplete({source:data});
-        	$("#book_hint").change(function(){
-        	    val1 = $("#book_hint").val();
-        		//$("#input_val").text($("#book_hint").val())
-        		//alert(val1);
-              	$.ajax({
-            		url: "./books_info",
-                    //url: "http://www.renowan.com/blog/flash/20110511_ajax/getAr.php"
-            		type: "POST",
-            		//data: { val : ''},
-            		//dataType: 'json',
-            		success: function(arr) {
-            		
-            		    //$("#input_val").text(arr);
-            			//alert("OK!!!");
-            			var booklist = JSON.parse(arr);
-            		    updateBooklist (booklist)
-            			//updateBooklist();
-            			$.each(booklist, function(key,val){$("#input_val").text(val)})
-                	    //$("#input_val").text(arr);
-            		},
-            		error: function(XMLHttpRequest, textStatus, errorThrown) {
-            			alert(textStatus);
-            		}
-            	});
-        	});
+//          $("#book_hint").change(refrect_hint);
+            $("#book_hint").bind('click keydown change', refrect_hint);
         });
         
   </script>
@@ -69,7 +46,6 @@
       <div class="middle align-right">
         <div id="left" class="app-welcome align-left">
           <p ><input placeholder="title or author" type="text" id="book_hint"/></p>
-          <p id="input_val" value="hoge">fff</p>
         </div>
       </div>
     </div>
