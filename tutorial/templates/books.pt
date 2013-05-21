@@ -6,7 +6,7 @@
   <title>Whodunit!</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
   <meta name="keywords" content="python web application" />
-  <meta name="description" content="pyramid web application" />
+  <meta name="description" content="whodunit web application" />
   <link rel="shortcut icon"
         href="${request.static_url('tutorial:static/favicon.ico')}" />
   <link rel="stylesheet"
@@ -20,7 +20,8 @@
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css" />
+  <script src='https://www.google.com/jsapi'></script>
+  <script src="${request.static_url('tutorial:static/books.js')}"></script>
   <script type="text/javascript">
         $(document).ready(function(){
             var data = ${book_titles}
@@ -36,10 +37,13 @@
             		//data: { val : ''},
             		//dataType: 'json',
             		success: function(arr) {
-            		    $("#input_val").text(arr);
+            		
+            		    //$("#input_val").text(arr);
             			//alert("OK!!!");
-            			var arr = JSON.parse(arr);
-            			$.each(arr, function(key,val){$("#input_val").text(val)})
+            			var booklist = JSON.parse(arr);
+            		    updateBooklist (booklist)
+            			//updateBooklist();
+            			$.each(booklist, function(key,val){$("#input_val").text(val)})
                 	    //$("#input_val").text(arr);
             		},
             		error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -56,21 +60,21 @@
     <div id="top-small">
       <div class="top-small align-center">
         <div>
-          <img width="220" height="50" alt="pyramid"
-        src="${request.static_url('tutorial:static/pyramid-small.png')}" />
+          <img width="220" height="50" alt="whodunit"
+        src="${request.static_url('tutorial:static/whodunit-gray.png')}" />
         </div>
       </div>
     </div>
     <div id="middle">
       <div class="middle align-right">
         <div id="left" class="app-welcome align-left">
-                       タイトルか著者名をどうぞ！
-          <p ><input type="text" id="book_hint"/></p>
+          <p ><input placeholder="title or author" type="text" id="book_hint"/></p>
           <p id="input_val" value="hoge">fff</p>
         </div>
       </div>
     </div>
     <div id="bottom">
+      <div id='book_list'></div>
     </div>
   </div>
   <div id="footer">

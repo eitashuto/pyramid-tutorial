@@ -135,7 +135,7 @@ def books(request):
 
 @view_config(route_name='books_info', renderer='json')
 def books_info(request):
-    books = DBSession.query(Book).all()[0]
+    books = DBSession.query(Book).all()
     result = json.dumps(books, cls=AlchemyEncoder)
     print result
     return result

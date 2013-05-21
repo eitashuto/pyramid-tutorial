@@ -39,7 +39,7 @@ def main(argv=sys.argv):
     with transaction.manager:
         model = Page('FrontPage', 'This is the front page')
         DBSession.add(model)
-        book1 = Book(u'横溝正史', u'獄門島')
-        book2 = Book(u'横溝正史', u'八つ墓村')
+        book1 = Book(u'獄門島', u'横溝正史')
+        book2 = Book(u'八つ墓村', u'横溝正史')
         DBSession.add_all([book1, book2])
         
