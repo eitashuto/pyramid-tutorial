@@ -138,21 +138,31 @@ def books(request):
 def books_info(request):
     #for r in request.params: print r
     hint = request.params['val_book_hint']
-    # check author
-#    hint = u"横溝正史"
-    book_list = []
+    if len(hint) == 0:
+      return json.dumps({})
 
-    authors = DBSession.query(Author).filter_by(name=hint).all()
+    book_list = []
+    #authors = DBSession.query(Author).filter_by(name=hint).all()
+    authors = DBSession.query(Author).filter(Author.name.like("%" + hint + "%")).all()
     for author in authors:
         books = DBSession.query(Book).filter_by(author_id=author.id).all()
         for book in books:
             book_list.append({"title": book.title, "author": author.name})
             
-    books = DBSession.query(Book).filter_by(title=hint).all()
+    
+    #books = DBSession.query(Book).filter_by(title=hint).all()
+    books = DBSession.query(Book).filter(Book.title.like("%" + hint + "%")).all()
     for book in books:
         author = DBSession.query(Author).filter_by(id=book.author_id).first()
-        book_list.append({"title": book.title, "book_id": book.id,"author": author.name})
+        book_list.append({"title": book.title, "id": book.id, "questio_id": book.question_id,"author": author.name})
             
     result = json.dumps(book_list)
     return result
 
+@view_config(route_name='question', renderer='json')
+def question(request):
+  return {}
+  
+@view_config(route_name='check_answer', renderer='json')
+def check_answer(request):
+  return {}

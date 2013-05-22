@@ -30,6 +30,8 @@ def main(global_config, **settings):
     config.add_route('view_wiki', '/')
     config.add_route('books', '/books')
     config.add_route('books_info', '/books_info')
+    config.add_route('question', '/question')
+    config.add_route('check_answer', '/check_answer')
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
     config.add_route('view_page', '/{pagename}')
