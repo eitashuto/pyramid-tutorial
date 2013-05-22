@@ -103,14 +103,14 @@ function add_question(parent, question, question_id){
   var $div = $('<div/>');
   $div.append(question);
   $div.append('<input type=\"text\"/>');
-  var $answer_button = $('<input type=\"submit\" value=\"回答する\" id='+ question_id+ '/>')
+  var $answer_button = $('<input type=\"submit\" value=\"回答する\" id='+ question_id+ ' />')
   $div.append($answer_button)
-  $answer_button.click( input_answer );
+  $answer_button.click( reply_answer );
   parent.append($div);
 }
 
-function input_answer(){
-  console.log("input_answer");
+function reply_answer(){
+  console.log("reply_answer");
   input_answer = $(this).prev().val()
   
   $.ajax({

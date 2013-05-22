@@ -142,7 +142,7 @@ def books_info(request):
     #for r in request.params: print r
     hint = request.params['val_book_hint']
     if len(hint) == 0:
-      return json.dumps({})
+        return json.dumps({})
 
     book_list = []
     #authors = DBSession.query(Author).filter_by(name=hint).all()
@@ -164,21 +164,29 @@ def books_info(request):
 
 @view_config(route_name='question', renderer='json')
 def question(request):
-  return {}
+    return {}
   
 @view_config(route_name='check_answer', renderer='json')
 def check_answer(request):
-  question_id = request.params['question_id']
-  input_answer = request.params['input_answer']
+    question_id = request.params['question_id']
+    input_answer = request.params['input_answer']
 
-  # TODO request multiple answers
-  print question_id
-  correct = 0
-  all_answers = DBSession.query(Answer).filter_by(question_id=question_id).all()
-  print all_answers
-  for answer in all_answers:
-      if answer.text == input_answer:
-          correct += 1
+    # multiple delimiters do not work correctly for Japanese word
+    input_answers = input_answer.split(u" ")
+    input_answers = reduce(lambda a,b: a+b, map(lambda x: x.split(u"　"), input_answers), [])
+    input_answers = reduce(lambda a,b: a+b, map(lambda x: x.split(u","), input_answers), [])
+    
+    correct = 0
+    all_answers = DBSession.query(Answer).filter_by(question_id=question_id).all()
+    print all_answers
+    for input_answer in input_answers: 
+        print input_answer
+        for answer in all_answers:
+            print answer.text
+            if answer.text == input_answer:
+                correct += 1
+                break
           
-  return {"result": correct == len(all_answers)}
+    print correct
+    return {"result": correct == len(all_answers)}
 

@@ -83,11 +83,11 @@ class Question(Base):
     """ The SQLAlchemy declarative model class for a Question object. """
     __tablename__ = 'questions'
     id = Column(Integer, primary_key=True)
-    question = Column(Text)
+    text = Column(Text)
     next = Column(Integer)
 
-    def __init__(self, question, next):
-        self.question = question
+    def __init__(self, text, next):
+        self.text = text
         self.next = next
 
 class Answer(Base):
@@ -95,11 +95,11 @@ class Answer(Base):
     __tablename__ = 'answers'
     id = Column(Integer, primary_key=True)
     question_id = Column(Integer)
-    answer = Column(Text)
+    text = Column(Text)
 
-    def __init__(self, question_id, answer):
+    def __init__(self, question_id, text):
         self.question_id = question_id
-        self.answer = answer
+        self.text = text
         
 class RootFactory(object):
     __acl__ = [ (Allow, Everyone, 'view'),
