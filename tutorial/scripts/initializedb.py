@@ -18,6 +18,8 @@ from ..models import (
     Author,
     Book,
     Question,
+    Answer,
+    Alias,
     Base,
     )
 
@@ -43,7 +45,17 @@ def main(argv=sys.argv):
         DBSession.add(model)
         author1 = Author(u'横溝正史', u'よこみぞせいし')
         DBSession.add(author1)
-        book1 = Book(1, u'獄門島', 0)
+        book1 = Book(1, u'獄門島', 1)
         book2 = Book(1, u'八つ墓村', 0)
         DBSession.add_all([book1, book2])
-        
+        question1 = Question('', 0)
+        answer1 = Answer(1, u'荒木村長')
+        answer2 = Answer(1, u'了然和尚')
+        answer3 = Answer(1, u'漢方医幸庵')
+        DBSession.add_all([question1])
+        DBSession.add_all([answer1, answer2, answer3])
+        alias1 = Alias(1, u'村長')
+        alias2 = Alias(2, u'和尚')
+        alias3 = Alias(3, u'村医者')
+        DBSession.add_all([alias1, alias2, alias3])
+

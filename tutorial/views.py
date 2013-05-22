@@ -25,6 +25,9 @@ from .models import (
     Page,
     Author,
     Book,
+    Question,
+    Answer,
+    Alias,
     )
 
 from .security import USERS
@@ -147,14 +150,14 @@ def books_info(request):
     for author in authors:
         books = DBSession.query(Book).filter_by(author_id=author.id).all()
         for book in books:
-            book_list.append({"title": book.title, "author": author.name})
+            book_list.append({"title": book.title, "id": book.id, "question_id": book.question_id,"author": author.name})
             
     
     #books = DBSession.query(Book).filter_by(title=hint).all()
     books = DBSession.query(Book).filter(Book.title.like("%" + hint + "%")).all()
     for book in books:
         author = DBSession.query(Author).filter_by(id=book.author_id).first()
-        book_list.append({"title": book.title, "id": book.id, "questio_id": book.question_id,"author": author.name})
+        book_list.append({"title": book.title, "id": book.id, "question_id": book.question_id,"author": author.name})
             
     result = json.dumps(book_list)
     return result
@@ -165,4 +168,17 @@ def question(request):
   
 @view_config(route_name='check_answer', renderer='json')
 def check_answer(request):
-  return {}
+  question_id = request.params['question_id']
+  input_answer = request.params['input_answer']
+
+  # TODO request multiple answers
+  print question_id
+  correct = 0
+  all_answers = DBSession.query(Answer).filter_by(question_id=question_id).all()
+  print all_answers
+  for answer in all_answers:
+      if answer.text == input_answer:
+          correct += 1
+          
+  return {"result": correct == len(all_answers)}
+

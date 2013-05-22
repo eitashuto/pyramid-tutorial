@@ -111,14 +111,16 @@ function add_question(parent, question, question_id){
 
 function input_answer(){
   console.log("input_answer");
-
+  input_answer = $(this).prev().val()
+  
   $.ajax({
     url: "./check_answer",
     type: "POST",
-    data: { question_id: $(this).attr("id")},
+    data: { question_id: $(this).attr("id"), input_answer: input_answer},
     dataType: 'json',
     success: function(arr) {
-      console.log("input_answer: OK");
+      //var result = JSON.parse(arr);
+      console.log("input_answer: OK" + arr.result);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       console.log("input_answer: NG " + textStatus);
