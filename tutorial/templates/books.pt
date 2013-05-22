@@ -26,9 +26,9 @@
         $(document).ready(function(){
             var data = ${book_titles}
             $("#book_hint").autocomplete({source:data});
-//          $("#book_hint").change(refrect_hint);
             $("#book_hint").bind('click keydown change', refrect_hint);
-        });
+            //table_click_handler();
+          });
         
   </script>
 </head>

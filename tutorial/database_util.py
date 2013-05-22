@@ -21,9 +21,4 @@ class AlchemyEncoder(json.JSONEncoder):
             return fields
     
         return json.JSONEncoder.default(self, obj)
-    
-class BookInfo:
-    def __init__(self, title, author):
-        self.title = title
-        self.author = author
-    
+

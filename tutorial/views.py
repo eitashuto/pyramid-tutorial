@@ -151,7 +151,7 @@ def books_info(request):
     books = DBSession.query(Book).filter_by(title=hint).all()
     for book in books:
         author = DBSession.query(Author).filter_by(id=book.author_id).first()
-        book_list.append({"title": book.title, "author": author.name})
+        book_list.append({"title": book.title, "book_id": book.id,"author": author.name})
             
     result = json.dumps(book_list)
     return result

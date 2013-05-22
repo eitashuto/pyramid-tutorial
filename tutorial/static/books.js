@@ -29,12 +29,12 @@ function updateBooklist( booklist )
     };
    var table = new google.visualization.Table(document.getElementById('book_list'));
    table.draw(data, {showRowNumber: true});
+   google.visualization.events.addListener(table, 'select', clickTableHandler);
 };
 
 var val_book_hint = "";
 
 function refrect_hint(){
-  console.log("function refrect_hint");
   new_val_book_hint = $("#book_hint").val();
   if(val_book_hint == new_val_book_hint){
     return
@@ -54,4 +54,8 @@ function refrect_hint(){
       alert(textStatus);
     }
   });
+}
+
+function clickTableHandler(evet){
+  console.log("clickTableHandler" + event);
 }
