@@ -100,10 +100,10 @@ function begin_question(){
 }
 
 function add_question(parent, question, question_id){
-  var $div = $('<div/>');
+  var $div = $('<div class=question />');
   $div.append(question);
   $div.append('<input type=\"text\"/>');
-  var $answer_button = $('<input type=\"submit\" value=\"回答する\" id='+ question_id+ ' />')
+  var $answer_button = $('<input class=answer_button type=submit value=回答する question_id='+ question_id+ ' />')
   $div.append($answer_button)
   $answer_button.click( reply_answer );
   parent.append($div);
@@ -116,16 +116,33 @@ function reply_answer(){
   $.ajax({
     url: "./check_answer",
     type: "POST",
-    data: { question_id: $(this).attr("id"), input_answer: input_answer},
+    data: { question_id: $(this).attr("question_id"), input_answer: input_answer},
     dataType: 'json',
     success: function(arr) {
       //var result = JSON.parse(arr);
       console.log("input_answer: OK" + arr.result);
+      if(!arr.result){
+        correct_answer(arr);
+      } else {
+        correct_answer(arr);
+      }
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       console.log("input_answer: NG " + textStatus);
     }
   });
+}
+
+function correct_answer(arr){
+  var button = $(".answer_button:last")
+  button.attr("disabled", true)
+  button.prev().attr("disabled", true);  //to disable text box
+  button.parent().append('<span>ご名答...</span>')
+  if(arr.next == 0 || arr.next == null){
+    $(".question:last").after('<p>QED.</p>')
+  } else {
+   // TODO： 次の質問
+  }
 }
 
 function clickTableHandler(event){

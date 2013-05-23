@@ -72,12 +72,12 @@ class Alias(Base):
     """ The SQLAlchemy declarative model class for a Alias object. """
     __tablename__ = 'aliases'
     id = Column(Integer, primary_key=True)
-    question_id = Column(Integer)
-    name = Column(Text)
+    answer_id = Column(Integer)
+    text = Column(Text)
 
-    def __init__(self, criminal_id, name):
-        self.criminal_id = criminal_id
-        self.name = name
+    def __init__(self, answer_id, text):
+        self.answer_id = answer_id
+        self.text = text
 
 class Question(Base):
     """ The SQLAlchemy declarative model class for a Question object. """

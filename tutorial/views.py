@@ -183,10 +183,31 @@ def check_answer(request):
         print input_answer
         for answer in all_answers:
             print answer.text
-            if answer.text == input_answer:
+            if score_answer(answer, input_answer):
                 correct += 1
                 break
-          
-    print correct
-    return {"result": correct == len(all_answers)}
+    
+    result = {}
+    result["result"] = correct == len(input_answers)
+    result["correct"] = correct
 
+    if result["result"]:
+        print "NEXT"
+        question = DBSession.query(Question).filter_by(id=question_id).first()
+        result["next"] = DBSession.query(Question).filter_by(id=next).first().id if (question.next != 0) else 0
+    
+    return result
+
+def score_answer(answer, input):
+    if answer.text == input:
+        return True
+    
+    all_aliases = DBSession.query(Alias).filter_by(answer_id=answer.id).all()
+    for alias in all_aliases: 
+        if input == alias.text:
+            return True
+    
+    return False
+    
+
+        
