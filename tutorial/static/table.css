@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+body{ font-size: 0.8em; }
+h2{ border-bottom: solid 1px #000; }
+table{ border-collapse: collapse; }
+th,td{ padding:  4px; }
+th{ color: #fff; }
+
+.even th{ background-color: #666; }
+.even td{ background-color: #ccc; }
+.odd th{ background-color: #333; }
+.odd td{ background-color: #eee; }
+
+.even-hover th{ background-color: #66c; }
+.even-hover td{ background-color: #aaccee; }
+.odd-hover th{ background-color: #339; }
+.odd-hover td{ background-color: #cde1f5; }
+
+.even-select th{ background-color: #cc33ee; }
+.even-select td{ background-color: #e1cdf5; }
+.odd-select th{ background-color: #a815c9; }
+.odd-select td{ background-color: #ccaaee; }
+
+body{
+font-family: 'Ume P Mincho S3';
+font-size: 16px;
+}
+
+input#book_hint { 
+width: 340px;
+margin: 20px auto 0px;
+}
+
+div#hint_input {
+margin: 0 auto;
+text-align: center;
+}
+
+table#book_table { 
+width: 640px;
+text-align: center;
+margin: 20px auto 0px;
+}
