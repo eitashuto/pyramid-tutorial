@@ -348,8 +348,8 @@ input
   color: #222;
   border: 1px solid #ccc;
   font-family: sans-serif;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 16px;
+  line-height: 18px;
 }
 
 input[type=text], input[type=password]

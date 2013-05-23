@@ -41,8 +41,7 @@ wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
 @view_config(route_name='view_wiki',
              permission='view')
 def view_wiki(request):
-    return HTTPFound(location = request.route_url('view_page',
-                                                  pagename='FrontPage'))
+    return HTTPFound(location = request.route_url('books',))
 
 @view_config(route_name='view_page', renderer='templates/view.pt',
              permission='view')

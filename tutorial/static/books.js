@@ -1,40 +1,7 @@
-function updateBooklist2( booklist )
-{
-  for(var i=0; i<booklist.length; i++) {
-  book = booklist[i]
-    $("#book_list").append(
-      $('<tr>').append(
-        $('<td class="title">').text(book.title)
-      ).append(
-        $('<td class="author">').text(book.author)
-      )
-    );
-  };
-};
-
-google.load('visualization', '1', {packages:['table']});
-
-//Visualization: Table
-function updateBooklist3( booklist )
-{
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', '題名');
-    data.addColumn('string', '著者');
-    
-    for(var i=0; i<booklist.length; i++) {
-      book = booklist[i]
-      data.addRows([
-        [book.title, book.author]
-     ]);
-    };
-   var table = new google.visualization.Table(document.getElementById('book_list'));
-   table.draw(data, {showRowNumber: true});
-   google.visualization.events.addListener(table, 'select', clickTableHandler);
-};
-
 function updateBooklist( booklist )
 {
-  console.log("updateBooklist");
+  $('#quiz').remove();
+
   if( $('#book_table').length == 0){
     var $table = $('<table/>');
     $table.attr('id', 'book_table');
@@ -48,6 +15,7 @@ function updateBooklist( booklist )
     $('#book_table').append( '<tr id=' + book.question_id + '><td id=' + book.id + '>' + book.title + '</td><td>' + book.author + '</td></tr>' );
   };
   book_table_click();
+  new $.sygTrHighlighter('table#book_table');
 };
 
 
@@ -83,13 +51,12 @@ function begin_question(){
   console.log("begin_question");
   $('#book_table').remove();
 
-  console.log($(this))
   var title = $(this).children(":first-child").text()
   var author = $(this).children(":nth-child(2)").text()
   var question_id = $(this).attr("id")
   console.log(title);
 
-  var $div = $('<div/>');
+  var $div = $('<div id=quiz />');
   $div.append("<h1>「 " + title + " 」   "+ author + "</h1>");
   add_question($div, "<p>犯人は誰？</p>", question_id)
   
