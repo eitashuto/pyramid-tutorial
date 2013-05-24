@@ -136,6 +136,47 @@ def logout(request):
 def books(request):
     return dict(book_titles = ["悪魔", "Bulls1", "Miami Heat"])
 
+import xml.dom.minidom
+from amazon import Amazon
+from amazon_keys import AmazonKeys
+
+def getValue(element, *tag_names):
+    for tag_name in tag_names:
+        elements = element.getElementsByTagName(tag_name)
+        if len(elements) == 0 : return None
+        element = elements[0]
+    #return element.getElementsByTagName(tag_name)[index].firstChild.data if len(tags) else None
+    return element.firstChild.data
+
+@view_config(route_name='amazon_info', renderer='json')
+def amazon_info(request):
+    title = request.params['title']
+    author = request.params['author']
+
+    keys = AmazonKeys()
+    amazon = Amazon(keys.access_key, keys.secret_access_key, keys.associate_tag)
+    amazon.setProxy("proxy.ome.toshiba.co.jp")
+
+    result = {}
+    try:
+        result_xml = amazon.itemSearch("Books", Title=u"獄門島", Author=u"横溝正史", ResponseGroup="Medium")  # 本
+        dom = xml.dom.minidom.parseString(result_xml)
+        items = dom.getElementsByTagName("Item")
+        if(len(items) != 0):
+            item = items[0]
+            result["image"] = getValue(item, "MediumImage", "URL")
+            result["url"] = getValue(item, "DetailPageURL")
+            result["title"] = title
+            print getValue(item, "ASIN"), getValue(item, "LargeImage", "URL"), getValue(item, "DetailPageURL"), getValue(item, "Author"), getValue(item, "Title")
+        dom.unlink()
+    
+    except HTTPError, e:
+        print e.code
+    except URLError, e:
+        print e.args
+
+    return result
+
 @view_config(route_name='books_info', renderer='json')
 def books_info(request):
     #for r in request.params: print r

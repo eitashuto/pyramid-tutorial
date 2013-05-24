@@ -41,3 +41,33 @@ width: 640px;
 text-align: center;
 margin: 20px auto 0px;
 }
+
+div#bottom {
+width: 800px;
+margin: 0px auto 0px;
+}
+
+div#quiz_title {
+margin: 10px auto 0px;
+text-align:center
+}
+
+input.answer_box {
+width: 400px
+}
+
+div.bottom {
+background-color: #F0F0F0
+}
+
+div.question {
+float: left;
+width: 600px;
+margin: 20px, auto,0px;
+}
+
+div#amazon {
+float: left;
+width: 200px;
+margin: 20px, auto,0px;
+}

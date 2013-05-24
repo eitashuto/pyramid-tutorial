@@ -47,6 +47,23 @@ function book_table_click(){
   $('#book_table tr').click( begin_question );
 }
 
+function show_amazon_info(title, author){
+  $.ajax({
+    url: "./amazon_info",
+    type: "GET",
+    data: { title: title, author: author},
+    dataType: 'json',
+  }).done( function( data ){
+    $('#quiz').append("<div id=amazon />")
+    if ( data.image != null){
+      $('#amazon').append("<a href=" + data.url + "  target=_blank><img src=" + data.image + " alt=" + data.title + "/></a>")
+    }
+    console.log("show_amazon_info: OK" + data);
+  }).fail( function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("show_amazon_info: NG " + textStatus);
+  });
+}
+
 function begin_question(){
   console.log("begin_question");
   $('#book_table').remove();
@@ -56,12 +73,12 @@ function begin_question(){
   var question_id = $(this).attr("id")
   console.log(title);
 
+  show_amazon_info(title, author);
+  
   var $div = $('<div id=quiz />');
-  $div.append("<h1>「 " + title + " 」   "+ author + "</h1>");
+  $div.append("<div id=quiz_title><h1>「 " + title + " 」   "+ author + "</h1></div>");
   add_question($div, "<p>犯人は誰？</p>", question_id)
   
-  //$div.append("<p>犯人は誰？</p>");
-  //$div.append("<input type=\"text\"/><input type=\"submit\" value=\"回答する\" id=\"input_answer\"/>");
   $('#bottom').append($div);
 
 }
@@ -69,7 +86,7 @@ function begin_question(){
 function add_question(parent, question, question_id){
   var $div = $('<div class=question />');
   $div.append(question);
-  $div.append('<input type=\"text\"/>');
+  $div.append('<input type=text class=answer_box />');
   var $answer_button = $('<input class=answer_button type=submit value=回答する question_id='+ question_id+ ' />')
   $div.append($answer_button)
   $answer_button.click( reply_answer );

@@ -29,6 +29,7 @@ def main(global_config, **settings):
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('view_wiki', '/')
     config.add_route('books', '/books')
+    config.add_route('amazon_info', '/amazon_info')
     config.add_route('books_info', '/books_info')
     config.add_route('question', '/question')
     config.add_route('check_answer', '/check_answer')
